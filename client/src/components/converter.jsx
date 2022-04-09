@@ -45,10 +45,13 @@ export default class Converter extends Component  {
       return;
     } else {
       fetch(`https://api.exchangeratesapi.io/latest?base=${this.state.base}`)
-        .then((res) => res.json())
+     
+        // .then((res) => res.json())
         .then((data) => {
+          console.log(data.body)
           const date = data.date;
           const result = (data.rates[this.state.convertTo] * amount).toFixed(4);
+          
           this.setState({
             result,
             date,
@@ -74,10 +77,10 @@ export default class Converter extends Component  {
   render(App) {
     const { currencies, base, amount, convertTo, result, date } = this.state;
     return (
-      <div className="container my-5">
+      <div className="container">
         <div className="row">
-          <div className="col-lg-6 mx-auto">
-            <div className="card card-body">
+          <div className="column">
+            <div className="card-body">
               <h5>
                 {amount} {base} is equevalent to
               </h5>
@@ -89,18 +92,18 @@ export default class Converter extends Component  {
               <p>As of {amount === "" ? "/ / /" : date === null ? "" : date}</p>
               <div className="row">
                 <div className="col-lg-10">
-                  <form className="form-inline mb-4">
+                  <form className="form">
                     <input
                       type="number"
                       value={amount}
                       onChange={this.handleInput}
-                      className="form-control form-control-lg mx-3"
+                      className="input"
                     />
                     <select
                       name="base"
                       value={base}
                       onChange={this.handleSelect}
-                      className="form-control form-control-lg"
+                      className="Select"
                     >
                       {currencies.map((currency) => (
                         <option key={currency} value={currency}>
@@ -109,8 +112,7 @@ export default class Converter extends Component  {
                       ))}
                     </select>
                   </form>
-
-                  <form className="form-inline mb-4">
+                  <form className="form">
                     <input
                       disabled={true}
                       value={
@@ -120,13 +122,13 @@ export default class Converter extends Component  {
                           ? "Calculating..."
                           : result
                       }
-                      className="form-control form-control-lg mx-3"
+                      className="input"
                     />
                     <select
                       name="convertTo"
                       value={convertTo}
                       onChange={this.handleSelect}
-                      className="form-control form-control-lg"
+                      className="form"
                     >
                       {currencies.map((currency) => (
                         <option key={currency} value={currency}>
@@ -136,11 +138,9 @@ export default class Converter extends Component  {
                     </select>
                   </form>
                 </div>
-
-                <div className="col-lg-2 align-self-center">
+                <div className="column">
                   <h1 onClick={this.handleSwap} className="swap">
-                    &#8595;&#8593;
-                  </h1>
+                </h1>
                 </div>
               </div>
             </div>
