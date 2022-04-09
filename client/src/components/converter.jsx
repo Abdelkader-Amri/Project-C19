@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 
+
+
 export default class Converter extends Component  {
   constructor(props){
     super(props);
@@ -44,9 +46,9 @@ export default class Converter extends Component  {
     if (amount === isNaN) {
       return;
     } else {
-      fetch(`https://api.exchangeratesapi.io/latest?base=${this.state.base}`)
+      fetch(`https://api.coingecko.com/api/v3/exchange_rates?base=${this.state.base}`)
      
-        // .then((res) => res.json())
+        .then((res) => res.json())
         .then((data) => {
           console.log(data.body)
           const date = data.date;
@@ -82,16 +84,16 @@ export default class Converter extends Component  {
           <div className="column">
             <div className="card-body">
               <h5>
-                {amount} {base} is equevalent to
+                 Money-Vert
               </h5>
               <h2>
-                {amount === "" ? "0" : result === "" ? "Calculating" : result}
+                {amount === "" ? "" : result === "" ? "Calculating" : result}
                 {""}
                 {convertTo}
               </h2>
-              <p>As of {amount === "" ? "/ / /" : date === null ? "" : date}</p>
+              <p>{amount === "" ? "Amount Here" : date === null ? "" : date}</p>
               <div className="row">
-                <div className="col-lg-10">
+                <div className="column">
                   <form className="form">
                     <input
                       type="number"
@@ -112,18 +114,21 @@ export default class Converter extends Component  {
                       ))}
                     </select>
                   </form>
+                 
                   <form className="form">
+                    
                     <input
                       disabled={true}
                       value={
-                        amount === ""
-                          ? "0"
+                        amount === "0"
+                          ? ""
                           : result === null
                           ? "Calculating..."
                           : result
                       }
                       className="input"
                     />
+                    
                     <select
                       name="convertTo"
                       value={convertTo}
@@ -137,6 +142,7 @@ export default class Converter extends Component  {
                       ))}
                     </select>
                   </form>
+                  
                 </div>
                 <div className="column">
                   <h1 onClick={this.handleSwap} className="swap">
