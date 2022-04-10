@@ -45,21 +45,21 @@ export default class Converter extends Component  {
   };
   calculate = () => {
     function exchange(amount,base,result){
-      if(base.innerHTML==result.innerHTML){
+      if(this.base == this.result) {
           return amount;
       }
       else{
-          if(base.innerHTML=="USD"){
-              if(result.innerHTML=="EUR"){
+          if(this.base == "USD"){
+              if(resultL=="EUR"){
                 return amount*.85;
               }
-              else if(result.innerHTML=="TND"){
+              else if(this.result=="TND"){
                 return amount*3.25;
               }
-              else if(result.innerHTML=="GBP"){
+              else if(this.result=="GBP"){
                 return amount*.77;
               }
-              else if(result.innerHTML=="CHF"){
+              else if(this.result=="CHF"){
                 return amount*.94;
               }
           }
