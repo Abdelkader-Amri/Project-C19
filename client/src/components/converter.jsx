@@ -1,22 +1,24 @@
 import React, {Component} from "react";
 
 
-
 export default class Converter extends Component  {
+
   constructor(props){
+
     super(props);
-  this.state = {
-    currencies: ["USD", "TND", "GBP", "CHF", "EUR"],
-    base: "USD",
-    amount: "",
-    convertTo: "",
-    result: "",
-    date: "",
+
+     this.state = {
+      currencies: ["USD", "TND", "GBP", "CHF", "EUR"],
+      base: "USD",
+      amount: "",
+      convertTo: "",
+      result: "",
+      date: "",
   };
-   this.handleSelect = this.handleSelect.bind(this);
-   this.handleInput = this.handleInput.bind(this);
-   this.calculate = this.calculate.bind(this);
-   this.handleSwap = this.handleSwap.bind(this);
+      this.handleSelect = this.handleSelect.bind(this);
+      this.handleInput = this.handleInput.bind(this);
+      this.calculate = this.calculate.bind(this);
+      this.handleSwap = this.handleSwap.bind(this);
 
 }
 
@@ -42,7 +44,29 @@ export default class Converter extends Component  {
     );
   };
   calculate = () => {
-    const amount = this.state.amount;
+    function exchange(amount,base,result){
+      if(base.innerHTML==result.innerHTML){
+          return amount;
+      }
+      else{
+          if(base.innerHTML=="USD"){
+              if(result.innerHTML=="EUR"){
+                return amount*.85;
+              }
+              else if(result.innerHTML=="TND"){
+                return amount*3.25;
+              }
+              else if(result.innerHTML=="GBP"){
+                return amount*.77;
+              }
+              else if(result.innerHTML=="CHF"){
+                return amount*.94;
+              }
+          }
+        }
+        
+        
+  const amount = this.state.amount;
     if (amount === isNaN) {
       return;
     } else {
@@ -60,7 +84,7 @@ export default class Converter extends Component  {
           });
         });
     }
-  };
+  
 
   handleSwap = (e) => {
     const base = this.state.base;
@@ -114,9 +138,7 @@ export default class Converter extends Component  {
                       ))}
                     </select>
                   </form>
-                 
                   <form className="form">
-                    
                     <input
                       disabled={true}
                       value={
@@ -128,7 +150,6 @@ export default class Converter extends Component  {
                       }
                       className="input"
                     />
-                    
                     <select
                       name="convertTo"
                       value={convertTo}
@@ -142,7 +163,6 @@ export default class Converter extends Component  {
                       ))}
                     </select>
                   </form>
-                  
                 </div>
                 <div className="column">
                   <h1 onClick={this.handleSwap} className="swap">
